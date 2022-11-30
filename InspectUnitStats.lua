@@ -47,7 +47,12 @@ local function DefaultItemStatsFrame(frame, unit)
         mask:SetPoint("TOPLEFT", statsFrame, "TOPRIGHT", -58, -3)
         mask:SetPoint("BOTTOMRIGHT", statsFrame, "BOTTOMRIGHT", -3, 2)
         mask:SetBlendMode("ADD")
-        mask:SetGradientAlpha("VERTICAL", 0.1, 0.4, 0.4, 0.8, 0.1, 0.2, 0.2, 0.8)
+        if mask.SetGradientAlpha then
+            mask:SetGradientAlpha("VERTICAL", 0.1, 0.4, 0.4, 0.8, 0.1, 0.2, 0.2, 0.8)
+        else
+            local minColor, maxColor = CreateColor(0.1, 0.4, 0.4, 0.8), CreateColor(0.1, 0.2, 0.2, 0.8)
+            mask:SetGradient("VERTICAL", minColor, maxColor)
+        end
         frame.statsFrame = statsFrame
         frame:HookScript("OnHide", function(self)
             self.statsFrame:Hide()

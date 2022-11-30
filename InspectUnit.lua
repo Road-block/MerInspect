@@ -313,7 +313,12 @@ mask:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
 mask:SetPoint("TOPLEFT", PlayerStatsFrame, "TOPLEFT", 3, -2)
 mask:SetPoint("BOTTOMRIGHT", PlayerStatsFrame, "BOTTOMRIGHT", -3, 2)
 mask:SetBlendMode("ADD")
-mask:SetGradientAlpha("VERTICAL", 0.1, 0.2, 0.3, 0.8, 0.1, 0.2, 0.1, 0.8)
+if mask.SetGradientAlpha then
+    mask:SetGradientAlpha("VERTICAL", 0.1, 0.2, 0.3, 0.8, 0.1, 0.2, 0.1, 0.8)
+else
+    local minColor, maxColor = CreateColor(0.1, 0.2, 0.3, 0.8), CreateColor(0.1, 0.2, 0.1, 0.8)
+    mask:SetGradient("VERTICAL", minColor, maxColor)
+end
 
 LibEvent:attachTrigger("TogglePlayerStatsFrame", function(self, frame, bool, forceShown)
     if (bool == false) then
